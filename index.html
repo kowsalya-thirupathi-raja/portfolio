@@ -439,15 +439,23 @@
   </footer>
 
   <script>
-  const VERSION = '2026-05-25-1';
+  const VERSION = '2026-05-25-2';
 
-  async function loadMarkdown(targetId, url) {
+  function rewriteImagePaths(md, basePath) {
+    return md.replace(/!\[([^\]]*)\]\((?!https?:\/\/|data:|\/)([^)]+)\)/g, (_, alt, src) => {
+      const clean = src.trim().replace(/^\.?\//, '');
+      return `![${alt}](${basePath}${clean})`;
+    });
+  }
+
+  async function loadMarkdown(targetId, url, basePath) {
     const el = document.getElementById(targetId);
     if (!el || el.dataset.loaded === '1') return;
 
     try {
       const res = await fetch(`${url}?v=${VERSION}`);
-      const md = await res.text();
+      let md = await res.text();
+      md = rewriteImagePaths(md, basePath);
       el.innerHTML = marked.parse(md);
       el.dataset.loaded = '1';
     } catch (e) {
@@ -464,10 +472,6 @@
     if (url.includes('projects/pcb/')) basePath = 'projects/pcb/';
     else if (url.includes('projects/3d-model/')) basePath = 'projects/3d-model/';
     else if (url.includes('projects/ml-emc/')) basePath = 'projects/ml-emc/';
-
-    if (details.open && targetId && url) {
-      loadMarkdown(targetId, url, basePath);
-    }
 
     details.addEventListener('toggle', () => {
       if (details.open && targetId && url) {
