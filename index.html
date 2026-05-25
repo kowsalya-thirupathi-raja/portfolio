@@ -439,19 +439,15 @@
   </footer>
 
   <script>
-  async function loadMarkdown(targetId, url, basePath) {
+  const VERSION = '2026-05-25-1';
+
+  async function loadMarkdown(targetId, url) {
     const el = document.getElementById(targetId);
     if (!el || el.dataset.loaded === '1') return;
 
     try {
-      const res = await fetch(url);
-      let md = await res.text();
-
-      md = md.replace(/!\[([^\]]*)\]\((?!https?:\/\/|data:)([^)]+)\)/g, (_, alt, src) => {
-        const clean = src.trim().replace(/^\.?\//, '');
-        return `![${alt}](${basePath}${clean})`;
-      });
-
+      const res = await fetch(`${url}?v=${VERSION}`);
+      const md = await res.text();
       el.innerHTML = marked.parse(md);
       el.dataset.loaded = '1';
     } catch (e) {
