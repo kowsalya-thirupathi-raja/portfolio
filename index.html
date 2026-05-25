@@ -14,6 +14,7 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   >
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
     :root {
@@ -174,19 +175,6 @@
       max-width: 70ch;
     }
 
-    .section.three {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 18px;
-    }
-
-    .block {
-      padding: 24px;
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -280,7 +268,7 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 22px;
-      max-width: 680px;
+      max-width: 780px;
       width: 100%;
       color: var(--text);
       box-shadow: 0 18px 60px rgba(0,0,0,.4);
@@ -297,11 +285,26 @@
       text-decoration: none;
     }
     .modal-close:hover { color: var(--accent); }
-    .modal-content img {
+
+    .readme-body {
+      color: var(--text);
+    }
+    .readme-body img {
       width: 100%;
       border-radius: 14px;
       border: 1px solid var(--line);
       margin-top: 12px;
+    }
+    .readme-body h1, .readme-body h2, .readme-body h3 {
+      line-height: 1.2;
+      margin-top: 0;
+    }
+    .readme-body p, .readme-body li {
+      color: var(--text);
+    }
+    .readme-body a {
+      color: var(--accent);
+      text-decoration: underline;
     }
 
     @media (max-width: 920px) {
@@ -332,10 +335,7 @@
           I design and validate electronics across PCBs, measurement, and debugging.
           This portfolio is a compact view of my selected work.
         </p>
-        <div class="actions">
-          <!--a class="btn primary" href="#visuals">See work</a>
-          <a class="btn secondary" href="#about">About</a-->
-        </div>
+        <div class="actions"></div>
       </div>
 
       <aside class="panel profile">
@@ -345,20 +345,12 @@
       </aside>
     </section>
 
-      <div class="block">
-        <h2>Selected work</h2>
-        <p class="intro">
-          Open the project cards below for details.
-        </p>
-      </div>
-    </section>
-
     <section class="section" id="visuals">
       <h2>Works so far..</h2>
       <p class="intro">A small selection of projects and visuals.</p>
 
       <div class="gallery">
-        <a href="#modal-pcb" class="shot">
+        <a href="#modal-pcb" class="shot" data-readme="assets/readmes/pcb.md" data-title="PCBs">
           <div class="preview">
             <img src="assets/images/pcb1.png" alt="PCB preview">
           </div>
@@ -368,7 +360,7 @@
           </div>
         </a>
 
-        <a href="#modal-3d" class="shot">
+        <a href="#modal-3d" class="shot" data-readme="assets/readmes/3d-model.md" data-title="3D Models">
           <div class="preview">
             <img src="assets/images/3d-model.png" alt="3D model preview">
           </div>
@@ -378,7 +370,7 @@
           </div>
         </a>
 
-        <a href="#modal-emc" class="shot">
+        <a href="#modal-emc" class="shot" data-readme="assets/readmes/ml-emc.md" data-title="ML in EMC">
           <div class="preview">
             <img src="assets/images/ml-emc.png" alt="EMC preview">
           </div>
@@ -407,28 +399,51 @@
   <div id="modal-pcb" class="modal">
     <a href="#" class="modal-close">&times;</a>
     <div class="modal-content">
-      <h3>PCBs</h3>
-      <p>Full details are kept in the separate README file for this project.</p>
-      <img src="assets/pcb.png" alt="PCB layout">
+      <div id="readme-pcb" class="readme-body">Loading...</div>
     </div>
   </div>
 
   <div id="modal-3d" class="modal">
     <a href="#" class="modal-close">&times;</a>
     <div class="modal-content">
-      <h3>3D Models</h3>
-      <p>Full details are kept in the separate README file for this project.</p>
-      <img src="assets/3d.png" alt="3D model">
+      <div id="readme-3d" class="readme-body">Loading...</div>
     </div>
   </div>
 
   <div id="modal-emc" class="modal">
     <a href="#" class="modal-close">&times;</a>
     <div class="modal-content">
-      <h3>ML in EMC</h3>
-      <p>Click for more details</p>
-      <img src="assets/emc.png" alt="EMC project image">
+      <div id="readme-emc" class="readme-body">Loading...</div>
     </div>
   </div>
+
+  <script>
+    const pages = [
+      { id: 'readme-pcb', url: 'assets/readmes/pcb.md' },
+      { id: 'readme-3d', url: 'assets/readmes/3d-model.md' },
+      { id: 'readme-emc', url: 'assets/readmes/ml-emc.md' }
+    ];
+
+    async function loadReadme(targetId, url) {
+      const el = document.getElementById(targetId);
+      if (!el || el.dataset.loaded === '1') return;
+      try {
+        const res = await fetch(url);
+        const md = await res.text();
+        el.innerHTML = marked.parse(md);
+        el.dataset.loaded = '1';
+      } catch (e) {
+        el.textContent = 'Could not load README content.';
+      }
+    }
+
+    pages.forEach(({ id, url }) => {
+      const modal = document.getElementById(id.replace('readme', 'modal'));
+      if (modal) {
+        modal.addEventListener('click', () => loadReadme(id, url), { once: true });
+      }
+      loadReadme(id, url);
+    });
+  </script>
 </body>
 </html>
