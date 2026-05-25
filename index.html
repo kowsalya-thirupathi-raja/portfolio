@@ -370,8 +370,8 @@
     </section>
 
     <section class="section" id="visuals">
-      <h2>Works so far..</h2>
-      <p class="intro">A small selection of projects and visuals.</p>
+      <h2>Projects</h2>
+      <p class="intro">Glimpse of a few past works.</p>
 
       <div class="stack">
         <details class="project" open data-readme="projects/pcb/README.md">
@@ -439,32 +439,47 @@
   </footer>
 
   <script>
-    async function loadMarkdown(targetId, url) {
-      const el = document.getElementById(targetId);
-      if (!el || el.dataset.loaded === '1') return;
-      try {
-        const res = await fetch(url);
-        const md = await res.text();
-        el.innerHTML = marked.parse(md);
-        el.dataset.loaded = '1';
-      } catch (e) {
-        el.textContent = 'Could not load README content.';
-      }
+  async function loadMarkdown(targetId, url, basePath) {
+    const el = document.getElementById(targetId);
+    if (!el || el.dataset.loaded === '1') return;
+
+    try {
+      const res = await fetch(url);
+      let md = await res.text();
+
+      md = md.replace(/!\[([^\]]*)\]\((?!https?:\/\/|data:)([^)]+)\)/g, (_, alt, src) => {
+        const clean = src.trim().replace(/^\.?\//, '');
+        return `![${alt}](${basePath}${clean})`;
+      });
+
+      el.innerHTML = marked.parse(md);
+      el.dataset.loaded = '1';
+    } catch (e) {
+      el.textContent = 'Could not load README content.';
+    }
+  }
+
+  document.querySelectorAll('details.project').forEach((details) => {
+    const url = details.dataset.readme;
+    const body = details.querySelector('.readme-body');
+    const targetId = body?.id;
+
+    let basePath = '';
+    if (url.includes('projects/pcb/')) basePath = 'projects/pcb/';
+    else if (url.includes('projects/3d-model/')) basePath = 'projects/3d-model/';
+    else if (url.includes('projects/ml-emc/')) basePath = 'projects/ml-emc/';
+
+    if (details.open && targetId && url) {
+      loadMarkdown(targetId, url, basePath);
     }
 
-    document.querySelectorAll('details.project').forEach((details) => {
-      const url = details.dataset.readme;
-      const body = details.querySelector('.readme-body');
-      const targetId = body?.id;
+    details.addEventListener('toggle', () => {
       if (details.open && targetId && url) {
-        loadMarkdown(targetId, url);
+        loadMarkdown(targetId, url, basePath);
       }
-      details.addEventListener('toggle', () => {
-        if (details.open && targetId && url) {
-          loadMarkdown(targetId, url);
-        }
-      });
     });
-  </script>
+  });
+</script>
+  
 </body>
 </html>
