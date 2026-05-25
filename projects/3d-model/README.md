@@ -1,32 +1,32 @@
-3D designing practice projects in Fusion360 for experience. To aid in housing/enclosure designing.
+Practice 3D design projects in Fusion 360, to aid building experience for enclosure/housing designs.
 
 <table>
   <tr>
     <td align="center">
-      <img src="images/3D%20Screw.png" alt="Image 1" width="100%">
+      ![M3 Screw](images/3D_Screw.png)
       <br>M3 Screw
     </td>
     <td align="center">
-      <img src="images/Toy%20block.png" alt="Image 2" width="100%">
+      ![Toy Block](images/Toy_block.png)
       <br>Toy Block
     </td>
     <td align="center">
-      <img src="images/crystal.png" alt="Image 3" width="100%">
+      ![Crystal](images/crystal.png)
       <br>Crystal
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="images/Loft%20bottle.png" alt="Image 4" width="100%">
+      ![Loft Bottle](images/Loft_bottle.png)
       <br>Loft Bottle
     </td>
     <td align="center">
-      <img src="images/Paper%20Clip.png" alt="Image 5" width="100%">
+      ![Paper Clip](images/Paper_Clip.png)
       <br>Paper Clip
     </td>
     <td align="center">
-      <img src="images/Ice%20tray.png" alt="Image 6" width="100%">
-      <br>Ice tray
+      ![Ice Tray](images/Ice tray.png)
+      <br>Ice Tray
     </td>
   </tr>
 </table>
