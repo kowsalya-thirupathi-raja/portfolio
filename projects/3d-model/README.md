@@ -1,32 +1,36 @@
-Practice 3D design projects in Fusion 360, to aid building experience for enclosure/housing designs.
+Practice 3D design projects in Fusion 360 to build experience in enclosure and housing design.
 
-<table>
-  <tr>
-    <td align="center">
-      ![M3 Screw](images/3D_Screw.png)
+<div align="center">
+  <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 16px;">
+    <div style="flex: 1; text-align: center; max-width: 420px;">
+      <img src="images/3D_Screw.png" alt="M3 Screw" width="100%">
       <br>M3 Screw
-    </td>
-    <td align="center">
-      ![Toy Block](images/Toy_block.png)
+    </div>
+    <div style="flex: 1; text-align: center; max-width: 420px;">
+      <img src="images/Toy_block.png" alt="Toy Block" width="100%">
       <br>Toy Block
-    </td>
-    <td align="center">
-      ![Crystal](images/crystal.png)
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 16px;">
+    <div style="flex: 1; text-align: center; max-width: 420px;">
+      <img src="images/crystal.png" alt="Crystal" width="100%">
       <br>Crystal
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      ![Loft Bottle](images/Loft_bottle.png)
+    </div>
+    <div style="flex: 1; text-align: center; max-width: 420px;">
+      <img src="images/Loft_bottle.png" alt="Loft Bottle" width="100%">
       <br>Loft Bottle
-    </td>
-    <td align="center">
-      ![Paper Clip](images/Paper_Clip.png)
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: center; gap: 16px;">
+    <div style="flex: 1; text-align: center; max-width: 420px;">
+      <img src="images/Paper_Clip.png" alt="Paper Clip" width="100%">
       <br>Paper Clip
-    </td>
-    <td align="center">
-      ![Ice Tray](images/Ice tray.png)
+    </div>
+    <div style="flex: 1; text-align: center; max-width: 420px;">
+      <img src="images/Ice_tray.png" alt="Ice Tray" width="100%">
       <br>Ice Tray
-    </td>
-  </tr>
-</table>
+    </div>
+  </div>
+</div>
