@@ -76,11 +76,16 @@
     .links a:hover { color: var(--text); }
 
     .hero {
-      padding: 84px 0 34px;
+      padding: 80px 0 34px;
       display: grid;
-      grid-template-columns: 60% 40%;
-      gap: 28px;
+      grid-template-columns: 58% 42%;
+      gap: 34px;
       align-items: center;
+      min-height: calc(100vh - 120px);
+    }
+
+    .hero > div {
+      max-width: 640px;
     }
 
     .eyebrow {
@@ -94,6 +99,7 @@
       background: rgba(255,255,255,.03);
       font-size: 13px;
       letter-spacing: .2px;
+      margin-bottom: 12px;
     }
     .dot {
       width: 8px;
@@ -103,39 +109,17 @@
       box-shadow: 0 0 0 4px rgba(114,214,180,.12);
     }
     h1 {
-      font-size: clamp(42px, 6.8vw, 72px);
+      font-size: clamp(38px, 5.8vw, 64px);
       line-height: .98;
-      margin: 18px 0 16px;
+      margin: 12px 0 16px;
       letter-spacing: -.04em;
+      max-width: 11ch;
     }
     .lead {
-      max-width: 60ch;
+      max-width: 54ch;
       color: var(--muted);
-      font-size: clamp(17px, 2vw, 19px);
+      font-size: clamp(16px, 1.8vw, 18px);
       margin: 0;
-    }
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-    .btn {
-      padding: 13px 18px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      font-weight: 600;
-      font-size: 14px;
-      transition: .2s ease;
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn.primary {
-      background: linear-gradient(135deg, var(--accent), #9f8dff);
-      color: #08101f;
-    }
-    .btn.secondary {
-      background: rgba(255,255,255,.03);
-      color: var(--text);
     }
 
     .panel {
@@ -250,7 +234,7 @@
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: rgba(0,0,0,.72);
+      background: rgba(0,0,0,.82);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -267,14 +251,17 @@
       background: var(--panel-2);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 22px;
-      max-width: 780px;
-      width: 100%;
+      padding: 28px;
+      width: min(92vw, 980px);
       color: var(--text);
-      box-shadow: 0 18px 60px rgba(0,0,0,.4);
-      max-height: 85vh;
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+      max-height: 88vh;
       overflow: auto;
       position: relative;
+    }
+    .modal-content h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
     }
     .modal-close {
       position: absolute;
@@ -287,7 +274,26 @@
     .modal-close:hover { color: var(--accent); }
 
     .readme-body {
+      max-width: 65ch;
+      margin: 0 auto;
       color: var(--text);
+      font-size: 15px;
+    }
+    .readme-body h1,
+    .readme-body h2,
+    .readme-body h3 {
+      line-height: 1.2;
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+    }
+    .readme-body p,
+    .readme-body li {
+      color: var(--text);
+      margin-bottom: 0.9rem;
+    }
+    .readme-body a {
+      color: var(--accent);
+      text-decoration: underline;
     }
     .readme-body img {
       width: 100%;
@@ -295,22 +301,14 @@
       border: 1px solid var(--line);
       margin-top: 12px;
     }
-    .readme-body h1, .readme-body h2, .readme-body h3 {
-      line-height: 1.2;
-      margin-top: 0;
-    }
-    .readme-body p, .readme-body li {
-      color: var(--text);
-    }
-    .readme-body a {
-      color: var(--accent);
-      text-decoration: underline;
-    }
 
     @media (max-width: 920px) {
       .hero, .section.three { grid-template-columns: 1fr; }
-      .hero { padding-top: 48px; }
-      h1 { font-size: clamp(38px, 10vw, 58px); }
+      .hero {
+        padding-top: 48px;
+        min-height: auto;
+      }
+      h1 { font-size: clamp(38px, 10vw, 58px); max-width: none; }
     }
   </style>
 </head>
@@ -335,7 +333,6 @@
           I design and validate electronics across PCBs, measurement, and debugging.
           This portfolio is a compact view of my selected work.
         </p>
-        <div class="actions"></div>
       </div>
 
       <aside class="panel profile">
@@ -350,7 +347,7 @@
       <p class="intro">A small selection of projects and visuals.</p>
 
       <div class="gallery">
-        <a href="#modal-pcb" class="shot" data-readme="assets/readmes/pcb.md" data-title="PCBs">
+        <a href="#modal-pcb" class="shot" data-readme="projects/pcb/README.md" data-title="PCBs">
           <div class="preview">
             <img src="assets/pcb.png" alt="PCB preview">
           </div>
@@ -360,7 +357,7 @@
           </div>
         </a>
 
-        <a href="#modal-3d" class="shot" data-readme="assets/readmes/3d-model.md" data-title="3D Models">
+        <a href="#modal-3d" class="shot" data-readme="projects/3d-model/README.md" data-title="3D Models">
           <div class="preview">
             <img src="assets/3d.png" alt="3D model preview">
           </div>
@@ -370,7 +367,7 @@
           </div>
         </a>
 
-        <a href="#modal-emc" class="shot" data-readme="assets/readmes/ml-emc.md" data-title="ML in EMC">
+        <a href="#modal-emc" class="shot" data-readme="projects/ml-emc/README.md" data-title="ML in EMC">
           <div class="preview">
             <img src="assets/emc.png" alt="EMC preview">
           </div>
@@ -399,6 +396,7 @@
   <div id="modal-pcb" class="modal">
     <a href="#" class="modal-close">&times;</a>
     <div class="modal-content">
+      <h3>PCBs</h3>
       <div id="readme-pcb" class="readme-body">Loading...</div>
     </div>
   </div>
@@ -406,6 +404,7 @@
   <div id="modal-3d" class="modal">
     <a href="#" class="modal-close">&times;</a>
     <div class="modal-content">
+      <h3>3D Models</h3>
       <div id="readme-3d" class="readme-body">Loading...</div>
     </div>
   </div>
@@ -413,6 +412,7 @@
   <div id="modal-emc" class="modal">
     <a href="#" class="modal-close">&times;</a>
     <div class="modal-content">
+      <h3>ML in EMC</h3>
       <div id="readme-emc" class="readme-body">Loading...</div>
     </div>
   </div>
