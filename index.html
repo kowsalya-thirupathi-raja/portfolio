@@ -8,6 +8,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  >
 
   <style>
     :root {
@@ -71,10 +77,11 @@
     .hero {
       padding: 84px 0 34px;
       display: grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 60% 40%;
       gap: 28px;
       align-items: center;
     }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -125,6 +132,10 @@
       background: linear-gradient(135deg, var(--accent), #9f8dff);
       color: #08101f;
     }
+    .btn.secondary {
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+    }
 
     .panel {
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
@@ -133,16 +144,20 @@
       box-shadow: var(--shadow);
     }
     .profile {
-      padding: 26px;
+      padding: 18px;
     }
-    .profile h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
+    .profile-img-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 4.2;
+      background: rgba(255,255,255,.05);
+      border-radius: calc(var(--radius) - 4px);
+      overflow: hidden;
     }
-    .meta {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
+    .profile-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .section {
@@ -172,27 +187,6 @@
       border-radius: var(--radius);
     }
 
-    .profile-img-block {
-      padding: 0;
-      background: none;
-      border: none;
-      box-shadow: none;
-      overflow: hidden;
-    }
-    .profile-img-wrapper {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background: rgba(255,255,255,.05);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .profile-img-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -200,34 +194,29 @@
     }
 
     .shot {
+      display: block;
       background: rgba(255,255,255,.03);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .shot:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.05);
     }
 
-    .shot summary {
-      list-style: none;
-      cursor: pointer;
-    }
-    .shot summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .shot-summary {
-      display: block;
-    }
-
-    .placeholder {
+    .preview {
       aspect-ratio: 16 / 10;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, rgba(142,166,255,.18), rgba(114,214,180,.12));
-      color: #fff;
-      font-weight: 700;
-      text-align: center;
-      padding: 18px;
-      letter-spacing: .2px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .cap {
@@ -243,23 +232,76 @@
       font-size: 13px;
     }
 
-    .shot-body {
-      padding: 0 16px 16px;
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      padding: 26px 0 38px;
     }
-    .shot-body p {
+
+    .icon-link {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      transition: .2s ease;
+      font-size: 18px;
+    }
+    .icon-link:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.08);
+    }
+
+    .modal {
+      opacity: 0;
+      visibility: hidden;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,.72);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      padding: 20px;
+    }
+    .modal:target {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      max-width: 680px;
+      width: 100%;
+      color: var(--text);
+      box-shadow: 0 18px 60px rgba(0,0,0,.4);
+      max-height: 85vh;
+      overflow: auto;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 1.8rem;
       color: var(--muted);
-      margin: 0 0 12px;
+      text-decoration: none;
     }
-    .shot-body img {
+    .modal-close:hover { color: var(--accent); }
+    .modal-content img {
       width: 100%;
       border-radius: 14px;
       border: 1px solid var(--line);
-    }
-
-    footer {
-      padding: 28px 0 46px;
-      color: var(--muted);
-      font-size: 14px;
+      margin-top: 12px;
     }
 
     @media (max-width: 920px) {
@@ -276,7 +318,7 @@
       <div class="brand">Kowsalya Thirupathi Raja</div>
       <nav class="links">
         <a href="#about">About</a>
-        <a href="#visuals">A Glimpse</a>
+        <a href="#visuals">See work</a>
       </nav>
     </div>
   </header>
@@ -291,68 +333,102 @@
           This portfolio is a compact view of my selected work.
         </p>
         <div class="actions">
-          <a class="btn primary" href="#visuals">See work</a>
+          <!--a class="btn primary" href="#visuals">See work</a>
+          <a class="btn secondary" href="#about">About</a-->
         </div>
       </div>
 
-      <aside class="section three">
-        <div class="block profile-img-block">
+      <aside class="panel profile">
         <div class="profile-img-wrapper">
           <img src="assets/Soldering.JPG" alt="Kowsalya Thirupathi Raja">
         </div>
-      </div>
       </aside>
     </section>
 
-    <section class="section" id="visuals">
-      <h2>Previous works</h2>
-
-      <div class="gallery">
-        <details class="shot">
-          <summary class="shot-summary">
-            <div class="placeholder">PCBs</div>
-            <div class="cap">
-              <b>Board Design</b>
-              <span>Rendered views of boards designed.</span>
-            </div>
-          </summary>
-          <div class="shot-body">
-            <p>Detailed description of your PCB-design work.</p>
-            <img src="assets/images/pcb1.png" alt="PCB layout">
-          </div>
-        </details>
-
-        <details class="shot">
-          <summary class="shot-summary">
-            <div class="placeholder">ML in EMC</div>
-            <div class="cap">
-              <b>Signal Integrity</b>
-              <span>ML-based work for high-speed PCB data links.</span>
-            </div>
-          </summary>
-          <div class="shot-body">
-            <p>Explain your ML-based EMC or signal-integrity project.</p>
-            <img src="assets/images/ml-emc.png" alt="ML plot">
-          </div>
-        </details>
-
-        <details class="shot">
-          <summary class="shot-summary">
-            <div class="placeholder">3D modeling</div>
-            <div class="cap">
-              <b>Hobby Projects</b>
-              <span>3D modeling for future PCB housings.</span>
-            </div>
-          </summary>
-          <div class="shot-body">
-            <p>Describe your 3D-modeling projects for enclosures and housings.</p>
-            <img src="assets/images/3d-model.png" alt="3D model">
-          </div>
-        </details>
+      <div class="block">
+        <h2>Selected work</h2>
+        <p class="intro">
+          Open the project cards below for details.
+        </p>
       </div>
     </section>
+
+    <section class="section" id="visuals">
+      <h2>Works so far..</h2>
+      <p class="intro">A small selection of projects and visuals.</p>
+
+      <div class="gallery">
+        <a href="#modal-pcb" class="shot">
+          <div class="preview">
+            <img src="assets/images/pcb1.png" alt="PCB preview">
+          </div>
+          <div class="cap">
+            <b>PCBs</b>
+            <span>Board design and layout samples.</span>
+          </div>
+        </a>
+
+        <a href="#modal-3d" class="shot">
+          <div class="preview">
+            <img src="assets/images/3d-model.png" alt="3D model preview">
+          </div>
+          <div class="cap">
+            <b>3D Models</b>
+            <span>Hobby projects</span>
+          </div>
+        </a>
+
+        <a href="#modal-emc" class="shot">
+          <div class="preview">
+            <img src="assets/images/ml-emc.png" alt="EMC preview">
+          </div>
+          <div class="cap">
+            <b>ML in EMC</b>
+            <span>Signal integrity and EMC in PCBs.</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div class="footer-links" id="contact">
+      <a class="icon-link" href="mailto:thirupathirajakowsalya@gmail.com" aria-label="Gmail">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+      <a class="icon-link" href="https://www.linkedin.com/in/kowsalya-thirupathi-raja-76b488171" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+    </div>
   </main>
 
-  <footer class="wrap">© 2026 Kowsalya Thirupathi Raja. Built for GitHub Pages.</footer>
+  <footer class="wrap" style="padding-bottom: 30px; color: var(--muted); font-size: 14px;">
+    © 2026 Kowsalya Thirupathi Raja. Built for GitHub Pages.
+  </footer>
+
+  <div id="modal-pcb" class="modal">
+    <a href="#" class="modal-close">&times;</a>
+    <div class="modal-content">
+      <h3>PCBs</h3>
+      <p>Full details are kept in the separate README file for this project.</p>
+      <img src="assets/pcb.png" alt="PCB layout">
+    </div>
+  </div>
+
+  <div id="modal-3d" class="modal">
+    <a href="#" class="modal-close">&times;</a>
+    <div class="modal-content">
+      <h3>3D Models</h3>
+      <p>Full details are kept in the separate README file for this project.</p>
+      <img src="assets/3d.png" alt="3D model">
+    </div>
+  </div>
+
+  <div id="modal-emc" class="modal">
+    <a href="#" class="modal-close">&times;</a>
+    <div class="modal-content">
+      <h3>ML in EMC</h3>
+      <p>Click for more details</p>
+      <img src="assets/emc.png" alt="EMC project image">
+    </div>
+  </div>
 </body>
 </html>
