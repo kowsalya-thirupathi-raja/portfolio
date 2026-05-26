@@ -5,10 +5,7 @@
 #### Student Assistant (HiWi) | Digital Audio Recorder 
 * Developed for environmental digital audio recording.
 * Handled component selection and datasheet comprehension.
-* Developed electrical layout, schematic designs, and PCB layouts.
-
-![PCB Design]
-*Digital Audio Recorder PCB*
+* Developed electrical layout, schematic designs, and layouts for stacked PCBs.
 
 ----
 
@@ -40,11 +37,8 @@
 
 ----
 
-#### Research Assistant (WiMi) | Smart Screw Project
+#### Research Assistant (WiMi) | Smart Screw
 * Focused on Industry 4.0 condition monitoring.
 * Handled component selection and datasheet comprehension.
-* Developed electrical layout, schematic designs, and PCB layouts.
-
-![PCB Design]
-![PCB Design]
+* Developed electrical layout, schematic designs, and layouts for the small PCB.
 
