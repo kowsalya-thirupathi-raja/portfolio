@@ -7,7 +7,7 @@
 * Handled component selection and datasheet comprehension.
 * Developed electrical layout, schematic designs, and PCB layouts.
 
-![PCB Design](images/hiwi1.png)
+![PCB Design]
 *Digital Audio Recorder PCB*
 
 ----
@@ -45,7 +45,7 @@
 * Handled component selection and datasheet comprehension.
 * Developed electrical layout, schematic designs, and PCB layouts.
 
-![PCB Design](images/wimi1.png)
-![PCB Design](images/wimi2.png)
+![PCB Design]
+![PCB Design]
 *Smart Screw PCB*
 
